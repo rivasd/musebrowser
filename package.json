@@ -1,0 +1,31 @@
+{
+  "name": "musebrowser",
+  "version": "1.0.0",
+  "description": "using the muse with jspsych through the web bluetooth API",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rivasd/musebrowser.git"
+  },
+  "author": "Daniel Rivas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rivasd/musebrowser/issues"
+  },
+  "homepage": "https://github.com/rivasd/musebrowser#readme",
+  "devDependencies": {
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.27.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
+  },
+  "dependencies": {
+    "muse-js": "^3.1.0"
+  }
+}
