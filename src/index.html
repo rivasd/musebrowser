@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/gh/jspsych/jsPsych@6.0.5/jspsych.js"> </script>
+    <script src="https://cdn.jsdelivr.net/gh/jspsych/jsPsych@6.0.5/plugins/jspsych-html-keyboard-response.js"> </script>
     <style>
         .electrode-section {
             display: flex;
@@ -23,6 +25,8 @@
 </head>
 <body>
     <button id="muse">Press to connect</button>
+    <button id="experiment">Press to do experiment</button>
+    <div id="jspsych-container"></div>
     <div class="electrode-section">
         <div id="electrode-item-1" class="electrode-item">
 

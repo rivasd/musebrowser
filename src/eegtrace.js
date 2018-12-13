@@ -54,6 +54,9 @@ class EegTrace {
         this.overlay.style.left = "0px";
         this.olCtx = this.overlay.getContext("2d");
 
+        // Activate
+        this.active = true;
+
         // Allocate the databuffer
         this.databuffer = new Array(this.bufferLen).fill(0.0);
         // Draw the overlay
@@ -87,6 +90,9 @@ class EegTrace {
     }
 
     plot () {
+        if (!this.active) {
+            return
+        }
         const xStep = this.graph.width / this.databuffer.length;
 
         this.ctx.clearRect(0, 0, this.graph.width, this.graph.height);
@@ -104,6 +110,9 @@ class EegTrace {
     }
 
     update (newvals) {
+        if (!this.active) {
+            return
+        }
         this.databuffer.splice(0, newvals.length);
         this.databuffer.push(...newvals.map((val) => val * (this.graph.height / 2 / this.range)));
     }
