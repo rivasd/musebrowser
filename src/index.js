@@ -1,32 +1,27 @@
-import { MuseClient } from 'muse-js';
-import CanvasJS from './CanvasJS/canvasjs.min.js';
+import {MuseClient} from 'muse-js';
 import EegTrace from './eegtrace';
 
-var chart;
-var graphTitles;
-var canvases;
-var canvasCtx;
-var traces = {};
+let electrodes;
+const traces = {};
 
-async function main() {
 
-  //setup chart
-  graphTitles = Array.from(document.querySelectorAll('.electrode-item h3'));
-  canvases = Array.from(document.querySelectorAll('.electrode-item canvas'));
+async function main () {
+  // Setup chart
+  electrodes = Array.from(document.querySelectorAll('.electrode-item'));
 
-  canvases.forEach((canvas, idx) => {
-    canvas.width=1000;
-    traces[idx] = new EegTrace(canvas, 1000);
+  electrodes.forEach((elem, idx) => {
+    traces[idx] = new EegTrace(elem);
   })
 
-  let client = new MuseClient();
+  const client = new MuseClient();
+
   await client.connect();
   await client.start();
-  client.eegReadings.subscribe(reading => {
+  client.eegReadings.subscribe((reading) => {
     traces[reading.electrode].update(reading.samples);
     traces[reading.electrode].plot()
   });
-  client.telemetryData.subscribe(telemetry => {
+  client.telemetryData.subscribe((telemetry) => {
     console.log(telemetry);
   });
 }
