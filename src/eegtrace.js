@@ -17,7 +17,7 @@ class EegTrace {
         this.bgcolor    = opts.gbcolor || "#edf9f9";
         this.traceColor = opts.traceColor || "#24a001";
         this.olColor    = opts.olColor || "#ff2a00";
-        this.height     = opts.height || 200;
+        this.height     = opts.height || 100;
         this.width      = opts.width || 1000;
 
         // Build the main wrapper
