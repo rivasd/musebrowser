@@ -49,15 +49,19 @@ document.getElementById("muse").addEventListener("click", () => {
 document.getElementById("experiment").addEventListener("click", async () => {
   const client = new MuseClient();
 
-  await client.connect();
-  await client.start();
-
-  client.eegReadings.subscribe((reading) => {
-    const samples = reading.samples.map((sample, idx) => ({"value": sample,
-      "timestamp": reading.timestamp + (idx * timeStep),
-      "electrode": reading.electrode}));
-
-    eegdat[channelName[reading.electrode]].push(...samples);
-  });
+  /*
+   * await client.connect();
+   * await client.start();
+   *
+   *
+   * client.eegReadings.subscribe((reading) => {
+   * const samples = reading.samples.map((sample, idx) => ({"value": sample,
+   * "timestamp": reading.timestamp + (idx * timeStep),
+   * "electrode": reading.electrode}));
+   *
+   * eegdat[channelName[reading.electrode]].push(...samples);
+   * });
+   *
+   */
   runExp(eegdat, client);
 })

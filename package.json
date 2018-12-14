@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "file-saver": "^2.0.0",
-    "muse-js": "^3.1.0"
+    "muse-js": "^3.1.0",
+    "tone": "^0.12.80"
   }
 }
