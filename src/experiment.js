@@ -2,42 +2,78 @@ import saveAs from 'file-saver';
 import './jspsych-audio-keyboard-response';
 import createSoundGenerator from './sounds';
 
-function runExp (eegcont, client) {
+
+function runExp (eegcont, client, stream) {
     const timeline = [];
 
-    var sound1 = createSoundGenerator("Ab3", 1.21, "sine");
-    var sound2 = createSoundGenerator("D3", 3, "sine");
+    var sound1 = createSoundGenerator({
+        ampMoulationFreq : 2,
+        type: "sine",
+        basefre: "Ab3"
+    });
+    var sound2 = createSoundGenerator({
+        ampMoulationFreq : 3.1,
+        type: "sine",
+        basefre: "C4"
+    });
 
-    timeline.push({
-        type:"html-keyboard-response",
-        stimulus: "Wait a bit for EEG data..."
+    let cue = createSoundGenerator();
+    let endCue = createSoundGenerator({
+        type:"dirty",
+        basefreq: "F4"
     })
 
-    for (let i = 0; i < 20; i++) {
-        timeline.push({
-            type:"call-function",
-            async: true,
-            func: function (promise) {
-                sound1.start();
-                sound2.start();
-                client.injectMarker("test");
-                setTimeout(() => {
-                    sound1.stop();
-                    sound2.stop();
-                    promise();
-                }, 5000);
-            }
+    let instructions = {
+        type:"instructions",
+        show_clickable_nav: true,
+        pages: [
+            "Welcome to this jsPsych experiment that will collect EEG data right here in the browser!",
+            "We will be trying to ellicit occipital alpha waves. "
+        ]
+    }
 
-        })
+    let cueTrial = {
+        type:"call-function",
+        async: true,
+        func: function (endTrial){
+            cue.start();
+            setTimeout(() => {
+                cue.stop();
+                client.injectMarker("relax");
+                setTimeout(() => {
+                    endCue.start();
+                    setTimeout(() => {
+                        endCue.stop();
+                        endTrial();
+                    }, 500)
+                }, 30 * 1000)
+            }, 500);
+        }
+    }
+
+    let instruction = {
+        type: "html-keyboard-response",
+        stimulus : "Now relax and close your eyes until the next sound cue, press any key to continue"
+    }
+
+    let normalTrial = {
+        type: "html-keyboard-response",
+        stimulus: '<p> Now enjoy some of that sweet music </p><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/ZTidn2dBYbY?controls=0&amp;start=23" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+    }
+
+    let test_procedure = {
+        timeline:[instruction, cueTrial, normalTrial],
+        timeline_variables : [],
+        repeat: 10
     }
 
 
     jsPsych.init({
-        timeline: timeline,
+        timeline: [instructions, test_procedure],
         display_element:"jspsych-container",
         on_finish: function (data) {
-            saveAs(new Blob([data.csv()], {type:"text/plain;charset=utf-8"}), "behavioral.csv");
-            saveAs(new Blob([JSON.stringify(eegcont)], {type:"text/plain;charset=utf-8"}, "eeg.csv"))
+            client.disconnect();
+            stream.close();
         }
     })
 }

@@ -10,10 +10,9 @@ channel_names = ['TP9', 'AF7', 'AF8', 'TP10', 'AUX']
 
 def parse_browser_df(df, name):
 
-    df["timestamp"] = pd.to_datetime(df["timestamp"], unit="ms")
-    df.set_index("timestamp", inplace=True)
-    df.rename(columns={"value":name}, inplace=True)
-    df.drop(columns=["electrode"], inplace=True)
+    df["t"] = pd.to_datetime(df["t"], unit="ms")
+    df.set_index("t", inplace=True)
+    df.rename(columns={"v":name}, inplace=True)
     return df
 
 

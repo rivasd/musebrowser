@@ -89,6 +89,16 @@ class EegTrace {
         }
     }
 
+    off(){
+        this.active = false;
+        this.wrapper.style.display = "none";
+    }
+
+    on(){
+        this.active = true;
+        this.wrapper.style.display = "block";
+    }
+
     plot () {
         if (!this.active) {
             return

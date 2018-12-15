@@ -1,7 +1,9 @@
 {
     "env": {
         "browser": true,
-        "es6": true
+        "es6": true,
+        "amd": true,
+        "commonjs": true
     },
     "extends": "eslint:recommended",
     "parserOptions": {
@@ -95,7 +97,7 @@
         ],
         "newline-before-return": "error",
         "newline-per-chained-call": "off",
-        "no-alert": "error",
+        "no-alert": "warn",
         "no-array-constructor": "error",
         "no-async-promise-executor": "error",
         "no-await-in-loop": "error",
@@ -177,6 +179,7 @@
         "no-unmodified-loop-condition": "error",
         "no-unneeded-ternary": "error",
         "no-unused-expressions": "error",
+        "no-unused-vars":"warn",
         "no-use-before-define": "error",
         "no-useless-call": "error",
         "no-useless-computed-key": "error",
@@ -227,8 +230,8 @@
         "sort-imports": "off",
         "sort-keys": "off",
         "sort-vars": "error",
-        "space-before-blocks": "error",
-        "space-before-function-paren": "error",
+        "space-before-blocks": "off",
+        "space-before-function-paren": "off",
         "space-in-parens": [
             "error",
             "never"
