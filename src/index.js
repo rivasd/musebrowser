@@ -2,7 +2,8 @@ import {MuseClient} from 'muse-js';
 import EegTrace from './eegtrace';
 import runExp from './experiment';
 import streamSaver from './StreamSaver';
-import './static/experiment.css'
+import style from './static/experiment.css'
+
 
 let electrodes;
 let client;
@@ -22,7 +23,7 @@ const encoder = new TextEncoder();
 const timeStep = 1000 / 256;
 
 function startStream(){
-  const fileStream = streamSaver.createWriteStream("eeg.txt");
+  const fileStream = streamSaver.createWriteStream("eeg.csv");
   streamWriter = fileStream.getWriter();
   let header = "timestamp,electrode,value\n";
 

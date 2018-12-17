@@ -4,7 +4,6 @@ import createSoundGenerator from './sounds';
 
 
 function runExp (eegcont, client, stream) {
-    const timeline = [];
 
     var sound1 = createSoundGenerator({
         ampMoulationFreq : 2,

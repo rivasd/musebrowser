@@ -72,7 +72,7 @@
         "keyword-spacing": "error",
         "line-comment-position": "error",
         "linebreak-style": [
-            "error",
+            "off",
             "windows"
         ],
         "lines-around-comment": "error",
