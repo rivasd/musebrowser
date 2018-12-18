@@ -1,5 +1,5 @@
 import saveAs from 'file-saver';
-import './jspsych-audio-keyboard-response';
+import './modded-jspsych-plugins/jspsych-audio-keyboard-response';
 import createSoundGenerator from './sounds';
 
 

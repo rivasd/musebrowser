@@ -24,6 +24,11 @@ module.exports = {
         ]
       }
     ]
+  },
+  devServer:{
+    proxy: {
+      ''
+    }
   }
 
 };

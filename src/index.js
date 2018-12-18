@@ -3,6 +3,9 @@ import EegTrace from './eegtrace';
 import runExp from './experiment';
 import streamSaver from './StreamSaver';
 import style from './static/experiment.css'
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:3000');
 
 
 let electrodes;
@@ -56,7 +59,11 @@ async function main () {
     console.log(telemetry);
   });
   client.eventMarkers.subscribe((event) => {
-    streamWriter.write(encoder.encode(`${event.timestamp},event,${event.value}\n`))
+    streamWriter.write(encoder.encode(`${event.timestamp},event,${event.value}\n`));
+    socket.emit('eeg-event', {
+      "t":event.timestamp,
+      "v":event.value
+    })
   });
 }
 
